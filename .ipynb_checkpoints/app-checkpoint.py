@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -14,7 +14,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -24,7 +24,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -40,7 +40,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -53,7 +53,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -62,40 +62,36 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [],
    "source": [
     "# reflect an existing database into a new model\n",
+    "Base = automap_base()\n",
     "\n",
-    "# reflect the tables"
+    "# reflect the tables\n",
+    "Base.prepare(engine, reflect=True)"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
-    "# We can view all of the classes that automap found\n"
+    "# Save references to each table\n",
+    "Measurement = Base.classes.measurement\n",
+    "Station = Base.classes.station"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [],
    "source": [
-    "# Save references to each table\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# Create our session (link) from Python to the DB\n"
+    "# Create our session (link) from Python to the DB\n",
+    "session = Session(engine)"
    ]
   },
   {
@@ -107,16 +103,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [],
    "source": [
     "# Design a query to retrieve the last 12 months of precipitation data and plot the results\n",
-    "\n",
+    "last_year = session.query(Measurement.date).order_by(Measurement.date.desc()).first()\n",
     "# Calculate the date 1 year ago from the last data point in the database\n",
-    "\n",
+    "query_date = dt.date(2017,8,23) - dt.timedelta(days=365)\n",
     "# Perform a query to retrieve the data and precipitation scores\n",
-    "\n",
+    "query_prcp = \n",
     "# Save the query results as a Pandas DataFrame and set the index to the date column\n",
     "\n",
     "# Sort the dataframe by date\n",
@@ -130,7 +126,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# Use Pandas to calcualte the summary statistics for the precipitation data"
+    "# Use Pandas to calcualte the summary statistics for the precipitation data\n"
    ]
   },
   {
@@ -139,7 +135,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# Design a query to show how many stations are available in this dataset?\n"
+    "# Design a query to show how many stations are available in this dataset?\n",
+    "query_stn_count = "
    ]
   },
   {
@@ -149,6 +146,7 @@
    "outputs": [],
    "source": [
     "# What are the most active stations? (i.e. what stations have the most rows)?\n",
+    "\n",
     "# List the stations and the counts in descending order.\n"
    ]
   },
